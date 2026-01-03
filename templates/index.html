@@ -15,7 +15,11 @@
   </form>
 
   {% if result is not none %}
-    <p>結果：{{ result }}</p>
+    <h2>結果</h2>
+        <p>A：{{ result.a }}</p>
+        <p>B：{{ result.b }}</p>
+        <p>合計：{{ result.sum }}</p>
+        <p>平均：{{ result.ave }}</p>
   {% endif %}
 </body>
 </html>
