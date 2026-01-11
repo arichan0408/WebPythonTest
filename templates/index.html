@@ -3,19 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  
   <title>計算アプリ</title>
 </head>
 <body>
   <h2>計算アプリ</h2>
 
   <form method="post">
-    <input type="number" name="a" required>
-    <input type="number" name="b" required>
-    <button type="submit">計算</button>
+    <label>
+      A
+      <input type="number" name="a" required>
+    </label>
+
+    <label>
+      B
+      <input type="number" name="b" required>
+    </label>
+
+    <button type="submit" class="cal">計算</button>
   </form>
 
   {% if result is not none %}
-    <h2>結果</h2>
+    <h3>結果</h3>
         <p>A：{{ result.a }}</p>
         <p>B：{{ result.b }}</p>
         <p>合計：{{ result.sum }}</p>

@@ -1,0 +1,12 @@
+.cal{
+    display: inline-block;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+}
+
+form label{
+    display: block;
+    margin-bottom: 10px;
+}
