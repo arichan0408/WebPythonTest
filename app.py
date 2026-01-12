@@ -37,12 +37,9 @@ class Player:
         self.sum = self.soten2en + self.chip2en
 
 class Result:
-    def __init__(self, option, a, b, c, d):
+    def __init__(self, option, players):
         self.option = option
-        self.a = a
-        self.b = b
-        self.c = c
-        self.d = d
+        self.players = players
          
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -50,17 +47,23 @@ def index():
     if request.method == "POST":
         option = Option(
             int(request.form["start_point"]),
-            rate_dict[str(request.form["rate"])],
-            bool(request.form["uma"]),
-            bool(request.form["oka"]),
+            rate_dict[request.form["rate"]],
+            request.form["uma"] == "1",
+            request.form["oka"] == "1",
             int(request.form["start_chip"]),
-            chip_rate_dict[str(request.form["chip_rate"])]
+            chip_rate_dict[request.form["chip_rate"]]
             )
-        a = Player(option, str(request.form["a_name"]), int(request.form["a_value"]), int(request.form["a_chip"]) )
-        b = Player(option, str(request.form["b_name"]), int(request.form["b_value"]), int(request.form["b_chip"]) )
-        c = Player(option, str(request.form["c_name"]), int(request.form["c_value"]), int(request.form["c_chip"]) )
-        d = Player(option, str(request.form["d_name"]), int(request.form["d_value"]), int(request.form["d_chip"]) )
-        result = Result(option, a, b, c, d)
+        
+        players = {}
+        for key in ["a", "b", "c", "d"]:
+            players[key] = Player(
+                option,
+                request.form.get(f"{key}_name"),
+                int(request.form.get(f"{key}_value")),
+                int(request.form.get(f"{key}_chip"))
+            )
+
+        result = Result(option, players)
 
     return render_template("index.html", result=result)
 

@@ -82,29 +82,27 @@
   </form>
 
   {% if result is not none %}
+
     <h3>素点</h3>
-        <p>【{{ result.a.name }}】 得点：{{ result.a.value }}, 素点：{{ result.a.soten }}</p>
-        <p>【{{ result.b.name }}】 得点：{{ result.b.value }}, 素点：{{ result.b.soten }}</p>
-        <p>【{{ result.c.name }}】 得点：{{ result.c.value }}, 素点：{{ result.c.soten }}</p>
-        <p>【{{ result.d.name }}】 得点：{{ result.d.value }}, 素点：{{ result.d.soten }}</p>
-    
+    {% for p in result.players.values() %}
+      <p>【{{ p.name }}】 得点：{{ p.value }}, 素点：{{ p.soten }}</p>
+    {% endfor %}
+
     <h3>円換算</h3>
-        <p>【{{ result.a.name }}】 {{ result.a.soten }} × {{ result.option.rate}} = {{ result.a.soten2en }}円</p>
-        <p>【{{ result.b.name }}】 {{ result.b.soten }} × {{ result.option.rate}} = {{ result.b.soten2en }}円</p>
-        <p>【{{ result.c.name }}】 {{ result.c.soten }} × {{ result.option.rate}} = {{ result.c.soten2en }}円</p>
-        <p>【{{ result.d.name }}】 {{ result.d.soten }} × {{ result.option.rate}} = {{ result.d.soten2en }}円</p>
-    
-      <h3>チップ</h3>
-        <p>【{{ result.a.name }}】 {{ result.a.chip }} × {{ result.option.chip_rate }} = {{ result.a.chip2en }}円</p>
-        <p>【{{ result.b.name }}】 {{ result.b.chip }} × {{ result.option.chip_rate }} = {{ result.b.chip2en }}円</p>
-        <p>【{{ result.c.name }}】 {{ result.c.chip }} × {{ result.option.chip_rate }} = {{ result.c.chip2en }}円</p>
-        <p>【{{ result.d.name }}】 {{ result.d.chip }} × {{ result.option.chip_rate }} = {{ result.d.chip2en }}円</p>
-      
-      <h3>最終結果</h3>
-        <p>【{{ result.a.name }}】 {{ result.a.soten2en }} + {{ result.a.chip2en }} = {{ result.a.sum }}円</p>
-        <p>【{{ result.b.name }}】 {{ result.b.soten2en }} + {{ result.b.chip2en }} = {{ result.b.sum }}円</p>
-        <p>【{{ result.c.name }}】 {{ result.c.soten2en }} + {{ result.c.chip2en }} = {{ result.c.sum }}円</p>
-        <p>【{{ result.d.name }}】 {{ result.d.soten2en }} + {{ result.d.chip2en }} = {{ result.d.sum }}円</p>
+    {% for p in result.players.values() %}
+      <p>【{{ p.name }}】 {{ p.soten }} × {{ result.option.rate}} = {{ p.soten2en }}円</p>
+    {% endfor %}
+
+    <h3>チップ</h3>
+    {% for p in result.players.values() %}
+      <p>【{{ p.name }}】 {{ p.chip }} × {{ result.option.chip_rate}} = {{ p.chip2en }}円</p>
+    {% endfor %}
+
+    <h3>最終結果</h3>
+    {% for p in result.players.values() %}
+      <p>【{{ p.name }}】 {{ p.soten2en }} + {{ p.chip2en }} = {{ p.sum }}円</p>
+    {% endfor %}
+
   {% endif %}
 </body>
 </html>
