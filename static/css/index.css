@@ -10,3 +10,25 @@ form label{
     display: block;
     margin-bottom: 10px;
 }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 80px 200px 120px;
+  gap: 6px;
+  align-items: center;
+}
+
+.form-grid .header {
+  font-weight: bold;
+  background: #f0f0f0;
+  padding: 6px;
+  text-align: center;
+}
+
+.form-grid > div {
+  padding: 4px;
+}
+
+.form-grid input {
+  padding: 4px;
+}

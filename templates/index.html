@@ -12,24 +12,99 @@
 
   <form method="post">
     <label>
-      A
-      <input type="number" name="a" required>
+      原点
+      <input type="number" name="start_point" required>
     </label>
 
     <label>
-      B
-      <input type="number" name="b" required>
+      レート
+      <select name="rate">
+        <option>1000点=10円</option>
+        <option>1000点=20円</option>
+        <option>1000点=50円</option>
+        <option>1000点=100円</option>
+      </select>
     </label>
+
+    <label>
+      ウマ(未実装)
+      <input type="radio" name="uma" value="1" checked>
+      <input type="radio" name="uma" value="0">
+    </label>
+
+    <label>
+      オカ(未実装)
+      <input type="radio" name="oka" value="1" checked>
+      <input type="radio" name="oka" value="0">
+    </label>
+    
+    <label>
+      開始時点での持ちチップ数
+      <input type="number" name="start_chip" required>
+    <label>
+      チップレート
+      <select name="chip_rate">
+        <option>1枚=100円</option>
+        <option>1枚=200円</option>
+        <option>1枚=500円</option>
+        <option>1枚=1000円</option>
+      </select>
+    </label>
+
+    <div class="form-grid">
+      <!-- ヘッダ行 -->
+      <div class="header">名前</div>
+      <div class="header">得点</div>
+      <div class="header">チップ数</div>
+
+      <!-- A行 -->
+      <input type="text" name="a_name" required>
+      <input type="number" name="a_value" required>
+      <input type="number" name="a_chip" required>
+
+      <!-- B行 -->
+      <input type="text" name="b_name" required>
+      <input type="number" name="b_value" required>
+      <input type="number" name="b_chip" required>
+
+      <!-- C行 -->
+      <input type="text" name="c_name" required>
+      <input type="number" name="c_value" required>
+      <input type="number" name="c_chip" required>
+
+      <!-- D行 -->
+      <input type="text" name="d_name" required>
+      <input type="number" name="d_value" required>
+      <input type="number" name="d_chip" required>
+    </div>
 
     <button type="submit" class="cal">計算</button>
   </form>
 
   {% if result is not none %}
-    <h3>結果</h3>
-        <p>A：{{ result.a }}</p>
-        <p>B：{{ result.b }}</p>
-        <p>合計：{{ result.sum }}</p>
-        <p>平均：{{ result.ave }}</p>
+    <h3>素点</h3>
+        <p>【{{ result.a.name }}】 得点：{{ result.a.value }}, 素点：{{ result.a.soten }}</p>
+        <p>【{{ result.b.name }}】 得点：{{ result.b.value }}, 素点：{{ result.b.soten }}</p>
+        <p>【{{ result.c.name }}】 得点：{{ result.c.value }}, 素点：{{ result.c.soten }}</p>
+        <p>【{{ result.d.name }}】 得点：{{ result.d.value }}, 素点：{{ result.d.soten }}</p>
+    
+    <h3>円換算</h3>
+        <p>【{{ result.a.name }}】 {{ result.a.soten }} × {{ result.option.rate}} = {{ result.a.soten2en }}円</p>
+        <p>【{{ result.b.name }}】 {{ result.b.soten }} × {{ result.option.rate}} = {{ result.b.soten2en }}円</p>
+        <p>【{{ result.c.name }}】 {{ result.c.soten }} × {{ result.option.rate}} = {{ result.c.soten2en }}円</p>
+        <p>【{{ result.d.name }}】 {{ result.d.soten }} × {{ result.option.rate}} = {{ result.d.soten2en }}円</p>
+    
+      <h3>チップ</h3>
+        <p>【{{ result.a.name }}】 {{ result.a.chip }} × {{ result.option.chip_rate }} = {{ result.a.chip2en }}円</p>
+        <p>【{{ result.b.name }}】 {{ result.b.chip }} × {{ result.option.chip_rate }} = {{ result.b.chip2en }}円</p>
+        <p>【{{ result.c.name }}】 {{ result.c.chip }} × {{ result.option.chip_rate }} = {{ result.c.chip2en }}円</p>
+        <p>【{{ result.d.name }}】 {{ result.d.chip }} × {{ result.option.chip_rate }} = {{ result.d.chip2en }}円</p>
+      
+      <h3>最終結果</h3>
+        <p>【{{ result.a.name }}】 {{ result.a.soten2en }} + {{ result.a.chip2en }} = {{ result.a.sum }}円</p>
+        <p>【{{ result.b.name }}】 {{ result.b.soten2en }} + {{ result.b.chip2en }} = {{ result.b.sum }}円</p>
+        <p>【{{ result.c.name }}】 {{ result.c.soten2en }} + {{ result.c.chip2en }} = {{ result.c.sum }}円</p>
+        <p>【{{ result.d.name }}】 {{ result.d.soten2en }} + {{ result.d.chip2en }} = {{ result.d.sum }}円</p>
   {% endif %}
 </body>
 </html>
