@@ -3,23 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  
   <title>計算アプリ</title>
 </head>
 <body>
   <h2>計算アプリ</h2>
 
   <form method="post">
-    <input type="number" name="a" required>
-    <input type="number" name="b" required>
-    <button type="submit">計算</button>
+    <label>
+      原点
+      <input type="number" name="start_point" required>
+    </label>
+
+    <label>
+      レート
+      <select name="rate">
+        <option>1000点=10円</option>
+        <option>1000点=20円</option>
+        <option>1000点=50円</option>
+        <option>1000点=100円</option>
+      </select>
+    </label>
+
+    <label>
+      ウマ(未実装)
+      <input type="radio" name="uma" value="1" checked>
+      <input type="radio" name="uma" value="0">
+    </label>
+
+    <label>
+      オカ(未実装)
+      <input type="radio" name="oka" value="1" checked>
+      <input type="radio" name="oka" value="0">
+    </label>
+    
+    <label>
+      開始時点での持ちチップ数
+      <input type="number" name="start_chip" required>
+    <label>
+      チップレート
+      <select name="chip_rate">
+        <option>1枚=100円</option>
+        <option>1枚=200円</option>
+        <option>1枚=500円</option>
+        <option>1枚=1000円</option>
+      </select>
+    </label>
+
+    <div class="form-grid">
+      <!-- ヘッダ行 -->
+      <div class="header">名前</div>
+      <div class="header">得点</div>
+      <div class="header">チップ数</div>
+
+      <!-- A行 -->
+      <input type="text" name="a_name" required>
+      <input type="number" name="a_value" required>
+      <input type="number" name="a_chip" required>
+
+      <!-- B行 -->
+      <input type="text" name="b_name" required>
+      <input type="number" name="b_value" required>
+      <input type="number" name="b_chip" required>
+
+      <!-- C行 -->
+      <input type="text" name="c_name" required>
+      <input type="number" name="c_value" required>
+      <input type="number" name="c_chip" required>
+
+      <!-- D行 -->
+      <input type="text" name="d_name" required>
+      <input type="number" name="d_value" required>
+      <input type="number" name="d_chip" required>
+    </div>
+
+    <button type="submit" class="cal">計算</button>
   </form>
 
   {% if result is not none %}
-    <h2>結果</h2>
-        <p>A：{{ result.a }}</p>
-        <p>B：{{ result.b }}</p>
-        <p>合計：{{ result.sum }}</p>
-        <p>平均：{{ result.ave }}</p>
+
+    <h3>素点</h3>
+    {% for p in result.players.values() %}
+      <p>【{{ p.name }}】 得点：{{ p.value }}, 素点：{{ p.soten }}</p>
+    {% endfor %}
+
+    <h3>円換算</h3>
+    {% for p in result.players.values() %}
+      <p>【{{ p.name }}】 {{ p.soten }} × {{ result.option.rate}} = {{ p.soten2en }}円</p>
+    {% endfor %}
+
+    <h3>チップ</h3>
+    {% for p in result.players.values() %}
+      <p>【{{ p.name }}】 {{ p.chip }} × {{ result.option.chip_rate}} = {{ p.chip2en }}円</p>
+    {% endfor %}
+
+    <h3>最終結果</h3>
+    {% for p in result.players.values() %}
+      <p>【{{ p.name }}】 {{ p.soten2en }} + {{ p.chip2en }} = {{ p.sum }}円</p>
+    {% endfor %}
+
   {% endif %}
 </body>
 </html>
