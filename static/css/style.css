@@ -1,0 +1,85 @@
+/* 全体 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* 中央寄せ */
+.container {
+    max-width: 400px;
+    margin: 80px auto;
+    text-align: center;
+}
+
+/* タイトル */
+h1 {
+    margin-bottom: 40px;
+    color: #333;
+}
+
+/* メニュー全体 */
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ボタン */
+.menu-btn {
+    display: block;
+    padding: 15px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 8px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* ホバー */
+.menu-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* 押したとき */
+.menu-btn:active {
+    transform: translateY(0);
+}
+
+.cal{
+    display: inline-block;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+}
+
+form label{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 80px 200px 120px;
+  gap: 6px;
+  align-items: center;
+}
+
+.form-grid .header {
+  font-weight: bold;
+  background: #f0f0f0;
+  padding: 6px;
+  text-align: center;
+}
+
+.form-grid > div {
+  padding: 4px;
+}
+
+.form-grid input {
+  padding: 4px;
+}

@@ -40,9 +40,13 @@ class Result:
     def __init__(self, option, players):
         self.option = option
         self.players = players
-         
-@app.route("/", methods=["GET", "POST"])
-def index():
+
+@app.route("/")
+def top():
+    return render_template("top.html")
+
+@app.route("/calculator", methods=["GET", "POST"])
+def calculator():
     result = None
     if request.method == "POST":
         option = Option(
@@ -52,7 +56,7 @@ def index():
             request.form["oka"] == "1",
             int(request.form["start_chip"]),
             chip_rate_dict[request.form["chip_rate"]]
-            )
+        )
         
         players = {}
         for key in ["a", "b", "c", "d"]:
@@ -65,7 +69,7 @@ def index():
 
         result = Result(option, players)
 
-    return render_template("index.html", result=result)
+    return render_template("calculator.html", result=result)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
