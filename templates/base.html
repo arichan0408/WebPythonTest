@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <span class="logo">麻雀アプリ</span>
+
+        <button class="hamburger" aria-label="メニュー">☰</button>
+
+        <nav class="nav-menu">
+            <a href="{{ url_for('top') }}">トップ</a>
+            <a href="{{ url_for('yen_calculator') }}">精算</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container left">
+    {% block content %}{% endblock %}
+</main>
+
+<script>
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+
+hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('open');
+});
+</script>
+
+</body>
+</html>
