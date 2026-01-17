@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h2>精算</h2>
+
+  <form method="post" class="container form">
+    <label>
+      原点
+      <input type="number" name="start_point" required>
+    </label>
+
+    <label>
+      レート
+      <select name="rate">
+        <option>1000点=10円</option>
+        <option>1000点=20円</option>
+        <option>1000点=50円</option>
+        <option>1000点=100円</option>
+      </select>
+    </label>
+
+    <div class="switch-row">
+        <span class="switch-label">ウマ</span>
+
+        OFF
+        <!-- hiddenでOFF値を保証 -->
+        <input type="hidden" name="uma" value="0">
+
+        <label class="toggle-switch">
+            <input type="checkbox" name="uma" value="1" checked>
+            <span class="toggle-track"></span>
+        </label>
+        ON
+    </div>
+
+    <div class="switch-row">
+        <span class="switch-label">オカ</span>
+
+        OFF
+        <!-- hiddenでOFF値を保証 -->
+        <input type="hidden" name="oka" value="0">
+
+        <label class="toggle-switch">
+            <input type="checkbox" name="oka" value="1" checked>
+            <span class="toggle-track"></span>
+        </label>
+        ON
+    </div>
+    
+    <label>
+      開始時点での持ちチップ数
+      <input type="number" name="start_chip" required>
+    </label>
+
+    <label>
+      チップレート
+      <select name="chip_rate">
+        <option>1枚=100円</option>
+        <option>1枚=200円</option>
+        <option>1枚=500円</option>
+        <option>1枚=1000円</option>
+      </select>
+    </label>
+
+    <div class="form-grid">
+      <!-- ヘッダ行 -->
+      <div class="form-row header-row">
+        <div class="header">名前</div>
+        <div class="header">得点</div>
+        <div class="header">チップ数</div>
+      </div>
+
+      <!-- A行 -->
+      <div class="form-row">
+        <input type="text" name="a_name" class="text-input" required>
+        <input type="number" name="a_point" class="num-input" required>
+        <input type="number" name="a_chip" class="num-input" required>
+      </div>
+
+      <!-- B行 -->
+      <div class="form-row">
+        <input type="text" name="b_name" class="text-input" required>
+        <input type="number" name="b_point" class="num-input" required>
+        <input type="number" name="b_chip" class="num-input" required>
+      </div>
+
+      <!-- C行 -->
+      <div class="form-row">
+        <input type="text" name="c_name" class="text-input" required>
+        <input type="number" name="c_point" class="num-input" required>
+        <input type="number" name="c_chip" class="num-input" required>
+      </div>
+
+      <!-- D行 -->
+      <div class="form-row">
+        <input type="text" name="d_name" class="text-input" required>
+        <input type="number" name="d_point" class="num-input" required>
+        <input type="number" name="d_chip" class="num-input" required>
+      </div>
+    </div>
+
+    <button type="submit" class="button primary">計算</button>
+  </form>
+
+  <!-- ===== 結果テーブル ===== -->
+  {% if result is not none %}
+    <section class="container left">
+        <h2>プレイヤー別結果</h2>
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>名前</th>
+                    <th>得点</th>
+                    <th>チップ数</th>
+                    <th>素点</th>
+                    <th>素点（円）</th>
+                    <th>チップ（円）</th>
+                    <th>合計（円）</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for p in result.players %}
+                <tr>
+                    <td class="name">{{ p.name }}</td>
+                    <td>{{ p.point }}</td>
+                    <td>{{ p.chip }}</td>
+                    <td>{{ p.soten }}</td>
+                    <td>{{ p.soten_yen }}</td>
+                    <td>{{ p.chip_yen }}</td>
+                    <td><strong>{{ p.total_yen }}</strong></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+  {% endif %}
+  {% endblock %}
+</body>
+</html>
